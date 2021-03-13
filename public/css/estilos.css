@@ -1,0 +1,82 @@
+.select {
+  position: relative;
+  border: 1px solid #ccc;
+  width: 120px;
+  overflow: hidden;
+  background-color: #fff;
+}
+  
+.select:before {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 5px 0 5px;
+    border-color: #000000 transparent transparent transparent;
+    z-index: 5;
+    pointer-events: none;
+}
+  
+.select select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    appearance: none;
+}
+/**
+ * se aplica el ancho, margen centrado
+ * borde de un pixel con redondeado, y rellenado
+ * a la izquierda y derecha
+ */
+#Contenedor1{
+	width: 400px;
+	margin: 50px auto;
+	background-color: #F3EDED;
+        border: 1px solid #ECE8E8;
+	height: 400px;
+	border-radius:8px;
+	padding: 0px 9px 0px 9px;
+}
+
+/**
+ * Aplicando al icono de usuario el color de fondo,
+ * rellenado de 20px y un redondeado de 120px en forma
+ * de un circulo
+ */
+.Icon1 span{
+      background: #A8A6A6;
+      padding: 20px;
+      border-radius: 120px;
+}
+/**
+ * Se aplica al contenedor madre un margen de tamaño 10px hacia la cabecera y pie,
+ * color de fuente blanco,un tamaño de fuente 50px y texto centrado.
+ */
+.Icon1{
+     margin-top: 10px;
+     margin-bottom:10px; 
+     color: #FFF;
+     font-size: 50px;
+     text-align: center;
+}
+/**
+ * Se aplica al contenedor donde muestra en el pie
+ * la opción de olvidaste tu contraseña?
+ */
+.opcioncontra1{
+	text-align: center;
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+/**
+ * En las siguientes lineas
+ * se define el diseño adaptable, para que
+ * se muestre en los dispositivos móviles
+ */
