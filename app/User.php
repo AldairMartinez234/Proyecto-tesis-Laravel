@@ -12,14 +12,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable,HasRolesAndPermissions;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-       'id', 'name', 'email', 'password','sexo','tipo_usuario','rol'
-    ];
+    
 
     /**
      * The attributes that should be hidden for arrays.
@@ -27,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
     /**

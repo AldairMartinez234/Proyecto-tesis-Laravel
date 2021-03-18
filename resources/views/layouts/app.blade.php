@@ -212,7 +212,7 @@ document.location=Sel.ad.options[Sel.ad.selectedIndex].value
            <span class="label label-danger pull-right">{{ $unidades_count ?? '0' }}</span></span>
       </a>
     </li>
-
+<!--
     <li><a href="https://control-de-oxigeno-issste.000webhostapp.com/Biometrico/setup.zip"> <i class="glyphicon glyphicon-download-alt"> </i>
           <span>&nbsp;&nbsp; Descargar Instalar del Lector</span>
       </a>
@@ -222,6 +222,7 @@ document.location=Sel.ad.options[Sel.ad.selectedIndex].value
       <a  data-toggle="modal" data-target="#Control"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-globe"> </i> Modo Contingencia </button> </a>
       </center>
     </li>
+    -->
   </ul>
 
         <!--

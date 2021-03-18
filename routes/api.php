@@ -20,6 +20,8 @@ use Illuminate\Http\Request;
 
 Route::get('vista_paciente','VistapacientesController@index');
 
+Route::get('usuarios','AuthController@index');
+
 Route::get('vista_municipios','VistapacientesController@municipios');
 
 Route::get('vista_muni/{muni}','VistapacientesController@muni');
