@@ -522,33 +522,6 @@ document.location=Sel.ad.options[Sel.ad.selectedIndex].value
     });    
 </script>
 
-<script>
-  $(document).ready(function(){
-    setInterval(
-        function(){
-          <?php 
-        DB::update("UPDATE pacientes set contador=NOW(),estado = 'Activo' where estado = 'Activo'");
-        $contin = DB::SELECT('SELECT fecha_fin FROM pacientes');
-        $contador = DB::SELECT('SELECT contador FROM pacientes');
-
-        if ($contin[0] == $contador[0]) {
-
-            DB::update("UPDATE pacientes set contador=NOW(), modo = 'Modo Contingecia Acti'");
-
-        }else{
-           
-            DB::update("UPDATE pacientes set contador=NOW(), modo = 'Modo Contingecia Activado'");
-            
-        }
-         
-         ?>
-           alertify.set('notifier','position', 'top-right');
-           alertify.notify('Lista de usuarios actulizada,¡EXITOSAMENTE!', 'success', 5, function(){});
-        },50000
-      );
-  });
-</script>
-
 <script type="text/javascript">
   $(".alta").click(function (){
      var id = $(this).attr('id');
