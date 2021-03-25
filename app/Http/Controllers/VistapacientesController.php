@@ -37,10 +37,10 @@ class VistapacientesController extends Controller
 		 return response()->json($paciente, 200);	
 	}
 
-	public function entregados($id)
+	public function entregados($id,$codigo_entrega)
 	{
 		
-      $paciente = DB::insert("INSERT INTO pedidos (entregados,paciente_id) values (?,?)",["Pedido entregado",$id]);
+      $paciente = DB::insert("INSERT INTO pedidos (entregados,paciente_id,codigo_entrega) values (?,?,?)",["Pedido entregado",$id,$codigo_entrega]);
 		
 		return response()->json($paciente, 200);	
 	}

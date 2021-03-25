@@ -28,7 +28,7 @@ Route::get('vista_muni/{muni}','VistapacientesController@muni');
 
 Route::get('paciente/{id}','VistapacientesController@paciente');
 
-Route::get('paciente/entregados/{id}','VistapacientesController@entregados');
+Route::get('paciente/entregados/{id}/{codigo_entrega}','VistapacientesController@entregados');
 
 Route::get('paciente/busquedad/{name}','VistapacientesController@busquedad');
 
