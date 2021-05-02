@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" style="background-color: rgb(78, 109, 249);">
+                        <button class="login100-form-btn" style="background-color: #99173F;">
                           Ingresar
                         </button>
                     </div>

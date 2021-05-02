@@ -18,19 +18,24 @@ class ControlController extends Controller
         return view('resumens.lists_resumens',['vista_resumens' => vista_pacientes::all()]);
     }
 
-    public function create()
+    public function crear(Request $request,$id)
     {
-        //
-    }
+        $control = new Control_Entrega();
+        $control->num_interno = $request->num_control;
+        $control->medico = $request->medico;
+        $control->dosis = $request->dosis;
+        $control->inicio= $request->inicio;
+        $control->baja = $request->baja;
+        $control->paciente_id = $id;
+        $control->save();
+        
 
-    public function store(Request $request)
-    {
-        //
+        return redirect('/pacientes');
     }
 
     public function show($id)
     {
-        return view('controls.index',['paciente' => vista_pacientes::findOrFail($id)]);
+        return view('controls.crear',['paciente' => vista_pacientes::findOrFail($id)]);
     }
 
     public function edit($id)
@@ -46,9 +51,8 @@ class ControlController extends Controller
         $control->dosis = $request->dosis;
         $control->inicio= $request->inicio;
         $control->baja = $request->baja;
-        $control->fecha = $request->inicio;
         $control->paciente_id = $id;
-        $control->save();
+        $control->update();
 
     return redirect('/pacientes');
     }

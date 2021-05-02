@@ -21,6 +21,7 @@ class AuthController extends Controller
 		 return response()->json($usuarios, 200);	
 	}
 
+   
     private $client;
 
     public function __construct(){

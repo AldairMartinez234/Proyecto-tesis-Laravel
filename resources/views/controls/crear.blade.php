@@ -9,23 +9,23 @@
     <div class="">
         <div class="row">
             <div class="title-flat-form title-flat-blue">CONTROL DE PACIENTE DE OXÍGENO O CPAC DOMICILIARIO</div>
-            <form method="POST" action="{{route('controls.update',$paciente->id)}}">
-                @method('PATCH')
+            <form method="POST" action="{{route('controls.crear', $paciente->id)}}">
+                @method('POST')
                 @csrf
                 <pre style="background-color:#ECF0F5">
-NÚMERO DE CONTROL INTERNO: <input type="number" name="num_control" value="{{$paciente->num_interno}}" size="10" style="border-radius: 5px; border: 1px solid #39c;"/>
+NÚMERO DE CONTROL INTERNO: <input type="number" name="num_control" size="10" style="border-radius: 5px; border: 1px solid #39c;"/>
     
 NOMBRE DEL PACIENTE: <input type="text" name="name" value="{{$paciente->nombre}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 300px;"/>
 
 CÉDULA:              <input type="text" name="rfc" value="{{$paciente->RFC}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 200px;"/>
     
-MÉDICO QUE INDICA EL SUMINISTRO: <input type="text" name="medico" value="{{$paciente->medico}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 300px;"/>
+MÉDICO QUE INDICA EL SUMINISTRO: <input type="text" name="medico" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 300px;"/>
     
-DOSIS INDICADA: <input type="text" name="dosis" value="{{$paciente->dosis}}" style="border-radius: 5px; border: 1px solid #39c; width: 100px;"/>
+DOSIS INDICADA: <input type="text" name="dosis" style="border-radius: 5px; border: 1px solid #39c; width: 100px;"/>
     
-FECHA DE INICIO: <input type="date" name="inicio" value="{{$paciente->inicio}}" style="border-radius: 5px; border: 1px solid #39c;"/>&nbsp; &nbsp; DIRECCIÓN: <input type="text"  value="{{$paciente->calle}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 400px;"/>
+FECHA DE INICIO: <input type="date" name="inicio"  style="border-radius: 5px; border: 1px solid #39c;"/>&nbsp; &nbsp; DIRECCIÓN: <input type="text"  value="{{$paciente->calle}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 400px;"/>
     
-FECHA DE BAJA: <input type="date" name="baja" value="{{$paciente->baja }}" size="10" style="border-radius: 5px; border: 1px solid #39c;"/> &nbsp; &nbsp;TELÉFONO: <input type="text" value="{{$paciente->telefono}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 100px;"/></pre>
+FECHA DE BAJA: <input type="date" name="baja" size="10" style="border-radius: 5px; border: 1px solid #39c;"/> &nbsp; &nbsp;TELÉFONO: <input type="text" value="{{$paciente->telefono}}" size="10" style="border-radius: 5px; border: 1px solid #39c; width: 100px;"/></pre>
 
                 <table border=".5">
                     <tbody>
@@ -138,7 +138,7 @@ FECHA DE BAJA: <input type="date" name="baja" value="{{$paciente->baja }}" size=
                     <a href="{{asset('pacientes')}}"><button type="button" class="btn btn-info"><span
                                 class="glyphicon glyphicon-circle-arrow-left"></span> Regresar </button></a>
                     <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i>
-                        {{ __('Guardar cambios') }}</button>
+                        {{ __('Guardar') }}</button>
                 </p>
             </form>
         </div>

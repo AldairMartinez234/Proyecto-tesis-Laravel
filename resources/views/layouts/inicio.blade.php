@@ -30,7 +30,7 @@
 <!--===============================================================================================-->
 
 </head>
-<body style="background-color: #33414E">
+<body style="background-color: #3D0101">
 	
        	@yield('content')
 

@@ -443,6 +443,7 @@ if (pas1 != pas2) {
       modal.find('.modal-body #id').val(id);
       modal.find('.modal-body #slug').val(slug);
 });
+
     
 
 
