@@ -9,10 +9,12 @@ use App\Datos__Familiar;
 use App\vista_pacientes;
 use App\vista_familiar;
 use App\User;
+use App\huella_temp;
 use App\Bitacora_Paciente;
 use App\Bitacora_Direccion;
 use App\Bitacora_Familiar;
 use DB;
+use Carbon\Carbon;
 
 class PacienteController extends Controller
 {
@@ -22,7 +24,72 @@ class PacienteController extends Controller
         $pacientes = Paciente::all();
         $direccions = Direccion::all();
         $datos__familiars = Datos__Familiar::all();
-      return view('pacientes.index',['pacientes'=>$pacientes,'direccions'=>$direccions,'datos___familiars'=>$datos__familiars]);
+        $timestamp = \Carbon\Carbon::now()->toDateTimeString();
+      return view('pacientes.index',['pacientes'=>$pacientes,'direccions'=>$direccions,'datos___familiars'=>$datos__familiars,'timestamp'=>$timestamp]);
+    }
+
+    public function buscarhuella(Request $request)
+    {
+      
+      $pacientes = DB::select('Select*from pacientes where id = ? ',[$request->id_paciente]);
+      $datos__familiars = DB::select('Select*from datos___familiars where paciente_id = ? ',[$request->id_paciente]);
+      $direccions = DB::select('Select*from direccions where paciente_id = ? ',[$request->id_paciente]);
+      $timestamp = \Carbon\Carbon::now()->toDateTimeString();
+    return view('pacientes.index',['pacientes'=>$pacientes,'direccions'=>$direccions,'datos___familiars'=>$datos__familiars,'timestamp'=>$timestamp]);
+    }
+
+    public function lector_buscar($token)
+    {
+      DB::delete('delete from huellas_temp where pc_serial =? ', [$token]);
+      $pacientes = DB::insert('insert into huellas_temp (pc_serial, texto, opc) values (?, ?, ?)', [$token,'El sensor de huella dactilar esta activado', 'leer' ]);
+      
+    }
+
+    public function lector($token)
+    {
+      DB::delete('delete from huellas_temp where pc_serial =? ', [$token]);
+      $pacientes = DB::insert('insert into huellas_temp (pc_serial, texto, statusPlantilla, opc) values (?, ?, ?, ?)', [$token,'El sensor de huella dactilar esta activado', 'Muestras Restantes: 4', 'capturar' ]);
+      return response()->json("{\"filas\":$pacientes}");
+    }
+    
+    public function httpush($timestamp,$token)
+    {
+      
+      $fecha_actual = 0;
+      $fecha_bd = 0;
+
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $fecha_actual = (isset($timestamp) && $timestamp != 'null') ? $timestamp : 0;
+    } else {
+        if (isset($timestamp) && $timestamp != 'null') {
+            $fecha_actual = $timestamp;
+        }
+    }
+    
+    while ($fecha_bd <= $fecha_actual) {
+      usleep(100000);
+      clearstatcache();
+       $wordCount = DB::table('huellas_temp')->where('pc_serial', '<=', $token)->count();
+      if ($wordCount > 0) {
+          $fecha_bd = Carbon::parse($wordCount[0]['update_time'])->timestamp;
+          
+  }
+}
+$results = DB::select('Select*from huellas_temp where pc_serial = ?  ORDER BY id DESC LIMIT 1',[$token]);
+foreach($results as $paciente){
+  $reponse = array();
+  $reponse["id"] = $paciente->id;
+  $reponse["timestamp"] = Carbon::parse($paciente->update_time)->timestamp;
+  $reponse["texto"] = $paciente->texto;
+  $reponse["statusPlantilla"] = $paciente->statusPlantilla;
+  $reponse["nombre"] = $paciente->nombre;
+  $reponse["paciente_id"] = $paciente->paciente_id;
+  $reponse["imgHuella"] = $paciente->imgHuella;
+  $reponse["tipo"] = $paciente->opc;
+  echo json_encode($reponse);
+  //echo $datosJson;
+}
+
     }
 
     public function activo()
@@ -49,13 +116,15 @@ class PacienteController extends Controller
       return view('pacientes.index',['pacientes'=>$pacientes,'direccions'=>$direccions,'datos___familiars'=>$datos__familiars]);
     }
 
-
-    public function create()
+    public function create($token)
     {
-         return view('pacientes.register');
+      $tokens=$token;
+      $timestamp = \Carbon\Carbon::now()->toDateTimeString();
+    
+      return view('pacientes.register',compact('tokens','timestamp'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$token)
     {
        //Pacientes 
        $request->validate([
@@ -81,8 +150,15 @@ class PacienteController extends Controller
     $pacientes->estado= 'En proceso...';
     $pacientes->save(); // Se guarda el registro en la base de datos.
 
-     $Idultimo = $pacientes->id;
+    $Idultimo = $pacientes->id;
+     
+    DB::update('update huellas_temp set paciente_id = ? where pc_serial = ?', [$Idultimo,$token]);
 
+    $huella = DB::select('select*from huellas_temp where pc_serial = ?',[$token]);
+    foreach($huella as $huellas){
+    DB::insert('insert into huellas (pc_serial,paciente_id, nombre_dedo, huella, imgHuella) values (?, ?, ?, ?,?)', 
+    [$token,$Idultimo,'Dedo 1', $huellas->huella,$huellas->imgHuella]);
+    }
      //Direcciones
 
     $request->validate([
@@ -141,7 +217,7 @@ class PacienteController extends Controller
         $bita->tipo_usuario=auth()->user()->tipo_usuario;
         DB::update('update bitacora_familiar set usuario = ?, tipo_usuario = ? where paciente_id = ?', [$bita->usuario,$bita->tipo_usuario, $Idultimo ]);
 
-
+      
      return redirect('/pacientes');
     }
 

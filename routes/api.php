@@ -32,7 +32,6 @@ Route::get('paciente/entregados/{id}/{codigo_entrega}','VistapacientesController
 
 Route::get('paciente/busquedad/{name}','VistapacientesController@busquedad');
 
-
 Route::middleware('auth:api')->group(function () {
 	Route::post('logout' , 'AuthController@logout');
 });

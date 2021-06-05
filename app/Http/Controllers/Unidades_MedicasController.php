@@ -61,6 +61,7 @@ class Unidades_MedicasController extends Controller
 
     public function edit(Request $request)
     {
+      dd($request->id);
         $unidad = Unidad::findOrFail($request->id);
 
          $unidad->unidad = $request->unidad;

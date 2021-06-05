@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\vista_pacientes;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DB;
+use Carbon\Carbon;
 
 class VistapacientesController extends Controller
 {

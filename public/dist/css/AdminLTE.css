@@ -45,9 +45,7 @@ body {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   position: relative;
 }
-.layout-boxed {
-  background: url('../img/boxed-bg.jpg') repeat fixed;
-}
+
 /*
  * Content Wrapper - contains the main content
  */
@@ -354,7 +352,7 @@ a:focus {
     padding-left: 10px;
   }
   .content-header > .breadcrumb li:before {
-    color: #97a0b3;
+    color: #656464;
   }
 }
 .navbar-toggle {
@@ -906,7 +904,7 @@ a:focus {
 /*Dropdowns in general*/
 .dropdown-menu {
   box-shadow: none;
-  border-color: #eee;
+  border-color: rgb(224, 8, 8);
 }
 .dropdown-menu > li > a {
   color: #777;
